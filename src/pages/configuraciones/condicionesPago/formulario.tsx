@@ -7,6 +7,7 @@ import FormDrawer from "../../../components/containters/form";
 import { CondicionPago } from "../../../interfaces/configuraciones";
 
 const CondicionPagoFormulario = () => {
+
     const { contextCondicionesPago: { state: { modelo }, agregar, actualizar, cancelar } } = useData();
     const { entidad, editar, handleChangeInput } = useForm<CondicionPago | null | undefined>(modelo);
     const { TextArea } = Input;
@@ -78,12 +79,6 @@ const CondicionPagoFormulario = () => {
                 <Space>
                     <Switch checked={entidad.alContado} onChange={(checked) => editar({ ...entidad, alContado: checked })} />
                     <span>Requiere pago inmediato</span>
-                </Space>
-            </Form.Item>
-            <Form.Item valuePropName="checked">
-                <Space>
-                    <Switch checked={entidad.liquidacion} onChange={(checked) => editar({ ...entidad, liquidacion: checked })} />
-                    <span>Este suplidor requiere liquidaci&oacute;n inmediata</span>
                 </Space>
             </Form.Item>
             <Form.Item valuePropName="checked">

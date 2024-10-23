@@ -19,6 +19,7 @@ function BancosProvider({ children }: ControlProps) {
         editar({
             id: 0,
             nombre: '',
+            activo: true,
         })
     }
 

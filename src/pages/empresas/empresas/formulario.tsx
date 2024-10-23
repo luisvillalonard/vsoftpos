@@ -2,14 +2,13 @@ import { useEffect } from "react";
 import { useData } from "../../../hooks/useData";
 import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { Empresa } from "../../../interfaces/empresas";
-import { Col, Form, Input, Row, Select, Switch, Tag } from "antd";
+import { Col, Form, Input, Row, Select, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
 import FormDrawer from "../../../components/containters/form";
 
 const EmpresaFormulario = () => {
-    const {
-        contextEmpresas: { state: { datos: empresas, modelo }, agregar, actualizar, cancelar },
-    } = useData();
+
+    const { contextEmpresas: { state: { datos: empresas, modelo }, agregar, actualizar, cancelar }, } = useData();
     const { entidad, editar, handleChangeInput } = useForm<Empresa | null | undefined>(modelo);
 
     const guardar = async () => {

@@ -28,6 +28,7 @@ function ClientesProvider({ children }: ControlProps) {
             correo: null,
             condicionPago: null,
             comprobante: null,
+            credito: null,
             activo: true,
         })
     }

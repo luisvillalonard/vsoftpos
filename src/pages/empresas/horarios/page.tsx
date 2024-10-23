@@ -3,7 +3,7 @@ import Loading from "../../../components/loading";
 import Listado from "./listado";
 import Formulario from "./formulario";
 import { Content } from "antd/es/layout/layout";
-import { Button, Col, Flex, Row, Space } from "antd";
+import { Button, Flex, Space } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Searcher from "../../../components/searcher";
 import { useState } from "react";

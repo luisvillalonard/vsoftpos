@@ -5,26 +5,21 @@ import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { ControlProps } from "../../../interfaces/globales";
 import { Suplidor } from "../../../interfaces/compras";
-import { FormatDate_DDMMYYYY, FormatNumber } from "../../../hooks/useUtils";
+import { FormatDate_DDMMYYYY } from "../../../hooks/useUtils";
 
 const SuplidoresListado = (props: Pick<ControlProps, "filter">) => {
-    const { contextSuplidores: { state, editar, todos } } = useData();
-    const { datos, procesando, recargar } = state;
-    const { filter } = props;
-    const { Column } = Table;
-    const url = useLocation();
+
+    const { filter = '' } = props
+    const { contextSuplidores: { state, editar, todos } } = useData()
+    const { datos, procesando, recargar } = state
+    const { Column } = Table
+    const url = useLocation()
 
     const cargar = async () => await todos();
 
-    useEffect(() => {
-        cargar();
-    }, [url.pathname])
+    useEffect(() => { cargar() }, [url.pathname])
 
-    useEffect(() => {
-        if (recargar) {
-            cargar();
-        }
-    }, [recargar])
+    useEffect(() => { if (recargar) { cargar() } }, [recargar])
 
     return (
         <Table<Suplidor>

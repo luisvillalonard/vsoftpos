@@ -20,7 +20,6 @@ function EmpaquesProvider({ children }: ControlProps) {
             id: 0,
             nombre: '',
             unidades: 0,
-            empresa: null,
             activo: true
         })
     }

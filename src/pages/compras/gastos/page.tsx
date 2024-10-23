@@ -33,7 +33,7 @@ const GastosPage = () => {
             </Row>
             <GastosListado filter={filtro}/>
             <GastoFormulario />
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

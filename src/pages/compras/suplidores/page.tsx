@@ -33,6 +33,7 @@ const SuplidoresPage = () => {
             </Row>
             <SuplidoresListado filter={filtro}/>
             <SuplidorFormulario />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

@@ -7,17 +7,9 @@ import { useForm } from "../../../hooks/useForm";
 import FormDrawer from "../../../components/containters/form";
 
 const BancoFormulario = () => {
+    
     const { contextCatalogoCc: { state: { modelo }, agregar, actualizar, cancelar } } = useData();
     const { entidad, editar, handleChangeInput } = useForm<CatalogoCc | null | undefined>(modelo);
-
-    const generarCodigo = () => {
-        if (entidad) {
-            editar({
-                ...entidad,
-                codigo: [entidad?.grupo, entidad?.nivel1, entidad?.nivel2, entidad?.nivel3].filter(item => item).map(item => item?.toString()).join('.')
-            })
-        }
-    }
 
     const guardar = async () => {
 

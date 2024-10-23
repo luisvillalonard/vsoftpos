@@ -8,6 +8,7 @@ import Searcher from "../../../components/searcher";
 import { useState } from "react";
 
 const UnidadesMedidaPage = () => {
+    
     const { contextUnidades: { nuevo } } = useData();
     const [filtro, setFiltro] = useState<string>('');
 

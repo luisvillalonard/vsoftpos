@@ -9,6 +9,7 @@ import Searcher from "../../../components/searcher";
 import { useState } from "react";
 
 const MedidasPage = () => {
+    
     const { contextMedidas: { state: { procesando }, nuevo } } = useData();
     const [filtro, setFiltro] = useState<string>('');
 
@@ -33,7 +34,7 @@ const MedidasPage = () => {
             </Row>
             <MedidasListado filter={filtro}/>
             <MedidaFormulario />
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

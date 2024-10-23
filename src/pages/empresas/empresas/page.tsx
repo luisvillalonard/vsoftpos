@@ -30,7 +30,7 @@ const EmpresasPage = () => {
             </Row >
             <EmpresasListado filter={filtro} />
             <EmpresaFormulario />
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

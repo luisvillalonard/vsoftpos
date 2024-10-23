@@ -3,28 +3,23 @@ import { useEffect } from "react";
 import { Table, Tooltip, Button, Tag, Flex } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
-import { FormatDate_DDMMYYYY, GetTimeFromString } from "../../../hooks/useUtils";
+import { FormatDate_DDMMYYYY } from "../../../hooks/useUtils";
 import { ControlProps } from "../../../interfaces/globales";
 import { ComprobanteSecuencia } from "../../../interfaces/contabilidad";
 
 const HorariosListado = (props: Pick<ControlProps, "filter">) => {
-    const { contextComprobantesSecuencias: { state, editar, todos } } = useData();
-    const { datos, procesando, recargar } = state;
-    const { filter } = props;
-    const { Column } = Table;
-    const url = useLocation();
+
+    const { filter = '' } = props
+    const { contextComprobantesSecuencias: { state, editar, todos } } = useData()
+    const { datos, procesando, recargar } = state
+    const { Column } = Table
+    const url = useLocation()
 
     const cargar = async () => await todos();
 
-    useEffect(() => {
-        cargar();
-    }, [url.pathname])
+    useEffect(() => { cargar() }, [url.pathname])
 
-    useEffect(() => {
-        if (recargar) {
-            cargar();
-        }
-    }, [recargar])
+    useEffect(() => { if (recargar) { cargar() } }, [recargar])
 
     return (
         <Table<ComprobanteSecuencia>

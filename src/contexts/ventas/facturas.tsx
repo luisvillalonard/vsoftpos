@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ACTIONS, GlobalContextState, initState } from "../../reducers/global";
+import { ACTIONS, GlobalContextState } from "../../reducers/global";
 import { ControlProps, ResponseResult } from "../../interfaces/globales";
 import { Urls } from "../../components/rutas";
 import { useReducerHook } from "../../hooks/useReducer";

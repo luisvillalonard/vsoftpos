@@ -1,17 +1,18 @@
 import { useData } from "../../../hooks/useData";
 import { useEffect } from "react";
-import { Table, Tooltip, Button, Tag, Flex } from "antd";
+import { Table, Tooltip, Button, Flex } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { ControlProps } from "../../../interfaces/globales";
 import { Empaque } from "../../../interfaces/inventario";
 
 const EmpaquesListado = (props: Pick<ControlProps, "filter">) => {
-    const { contextEmpaques: { state, editar, todos } } = useData();
-    const { datos, procesando, recargar } = state;
-    const { filter } = props;
-    const { Column } = Table;
-    const url = useLocation();
+    
+    const { filter = '' } = props
+    const { contextEmpaques: { state, editar, todos } } = useData()
+    const { datos, procesando, recargar } = state
+    const { Column } = Table
+    const url = useLocation()
 
     const cargar = async () => await todos();
 
@@ -36,8 +37,8 @@ const EmpaquesListado = (props: Pick<ControlProps, "filter">) => {
                     ? []
                     :
                     datos && datos
-                        .filter(item => item.nombre.toLowerCase().indexOf((filter ?? '')) >= 0 ||
-                            (item.nombre ?? '').toLowerCase().indexOf((filter ?? '')) >= 0)
+                        .filter(item => item.nombre.toLowerCase().indexOf(filter) >= 0 ||
+                            (item.nombre ?? '').toLowerCase().indexOf(filter) >= 0)
                         .map((item, index) => { return { ...item, key: (index + 1).toString() } })
             }
             locale={{ emptyText: <Flex>0 empaques</Flex> }}>

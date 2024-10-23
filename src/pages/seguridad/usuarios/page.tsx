@@ -31,7 +31,7 @@ const UsuariosPage = () => {
             </Row >
             <Listado filter={filtro} />
             {!modelo ? <></> : <Formulario />}
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

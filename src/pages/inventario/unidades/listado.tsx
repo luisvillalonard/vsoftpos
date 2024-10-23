@@ -7,23 +7,18 @@ import { ControlProps } from "../../../interfaces/globales";
 import { Unidad } from "../../../interfaces/inventario";
 
 const UnidadesMedidaListado = (props: Pick<ControlProps, "filter">) => {
-    const { contextUnidades: { state, editar, todos } } = useData();
-    const { datos, procesando, recargar } = state;
-    const { filter } = props;
-    const { Column } = Table;
-    const url = useLocation();
+
+    const { filter = '' } = props
+    const { contextUnidades: { state, editar, todos } } = useData()
+    const { datos, procesando, recargar } = state
+    const { Column } = Table
+    const url = useLocation()
 
     const cargar = async () => await todos();
 
-    useEffect(() => {
-        cargar();
-    }, [url.pathname])
+    useEffect(() => { cargar() }, [url.pathname])
 
-    useEffect(() => {
-        if (recargar) {
-            cargar();
-        }
-    }, [recargar])
+    useEffect(() => { if (recargar) { cargar() } }, [recargar])
 
     return (
         <Table<Unidad>
@@ -36,8 +31,8 @@ const UnidadesMedidaListado = (props: Pick<ControlProps, "filter">) => {
                     ? []
                     :
                     datos && datos
-                        .filter(item => item.descripcion.toLowerCase().indexOf((filter ?? '')) >= 0 ||
-                            (item.medida?.nombre ?? '').toLowerCase().indexOf((filter ?? '')) >= 0)
+                        .filter(item => item.descripcion.toLowerCase().indexOf(filter) >= 0 ||
+                            (item.medida?.nombre ?? '').toLowerCase().indexOf(filter) >= 0)
                         .map((item, index) => { return { ...item, key: (index + 1).toString() } })
             }
             locale={{ emptyText: <Flex>0 unidades de medida</Flex> }}>

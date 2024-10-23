@@ -4,7 +4,7 @@ import { Table, Tooltip, Button, Flex, Tag } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { ControlProps } from "../../../interfaces/globales";
-import { Rol, Usuario } from "../../../interfaces/seguridad";
+import { Rol } from "../../../interfaces/seguridad";
 
 const RolesListado = (props: Pick<ControlProps, "filter">) => {
 

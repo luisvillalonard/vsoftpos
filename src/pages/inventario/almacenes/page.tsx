@@ -9,6 +9,7 @@ import Searcher from "../../../components/searcher";
 import { useState } from "react";
 
 const AlmacenesPage = () => {
+
     const { contextAlmacenes: { state: { procesando }, nuevo } } = useData();
     const [filtro, setFiltro] = useState<string>('');
 
@@ -33,7 +34,7 @@ const AlmacenesPage = () => {
             </Row>
             <AlmacenesListado filter={filtro}/>
             <AlmacenFormulario />
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

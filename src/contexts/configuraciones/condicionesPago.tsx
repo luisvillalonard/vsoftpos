@@ -23,7 +23,6 @@ function CondicionPagosProvider({ children }: ControlProps) {
             aplicaCliente: false,
             aplicaSuplidor: false,
             alContado: false,
-            liquidacion: false,
             diasVencimiento: 0,
             activo: true
         })

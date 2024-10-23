@@ -27,7 +27,7 @@ function EmpresasProvider({ children }: ControlProps) {
             correo: null,
             foto: null,
             principal: true,
-            empresa: null,
+            empresaId: null,
             activa: true
         })
     }

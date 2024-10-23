@@ -4,7 +4,6 @@ import { useData } from "../../../hooks/useData"
 import { Alerta, Exito } from "../../../hooks/useMensaje"
 import { Factura, FacturaPago } from "../../../interfaces/ventas"
 import { ControlProps } from "../../../interfaces/globales"
-import { useIconos } from "../../../hooks/useIconos"
 import { FormatDate_DDMMYYYY, FormatNumber } from "../../../hooks/useUtils"
 import { Colors } from "../../../hooks/useConstants"
 

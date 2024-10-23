@@ -6,7 +6,6 @@ import { useForm } from "../../../hooks/useForm";
 import FormDrawer from "../../../components/containters/form";
 import TextArea from "antd/es/input/TextArea";
 import { Gasto } from "../../../interfaces/compras";
-import { Empleado } from "../../../interfaces/empresas";
 
 const GastoFormulario = () => {
     const {
@@ -42,11 +41,7 @@ const GastoFormulario = () => {
 
     useEffect(() => {
         editar(modelo);
-        (async () => {
-            await cargarTipos();
-            await cargarEmpleados();
-            await cargarEmpresas();
-        })()
+        (async () => { await Promise.all([ cargarTipos(), cargarEmpleados(), cargarEmpresas() ]) })()
     }, [modelo])
 
     if (!entidad) {

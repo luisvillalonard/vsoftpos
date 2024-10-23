@@ -9,6 +9,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 const EmpleadosPage = () => {
+
     const { contextEmpleados: { state: { procesando }, nuevo } } = useData();
     const [filtro, setFiltro] = useState<string>('');
 
@@ -30,7 +31,7 @@ const EmpleadosPage = () => {
             </Row >
             <EmpleadosListado filter={filtro} />
             <EmpleadoFormulario />
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useData } from "../../../hooks/useData";
 import { Alerta, Exito } from "../../../hooks/useMensaje";
-import { Col, Form, Input, InputNumber, Row, Select, Space, Switch, Tabs, TabsProps } from "antd";
+import { Col, Form, Input, InputNumber, Row, Select, Space, Switch, Tabs } from "antd";
 import { useForm } from "../../../hooks/useForm";
 import FormDrawer from "../../../components/containters/form";
 import { Producto } from "../../../interfaces/inventario";
 
 const ProductoFormulario = () => {
+
     const {
         contextProductos: { state: { modelo }, agregar, actualizar, cancelar },
         contextGrupos: { state: { datos: grupos, procesando: cargandoGrupos }, todos: cargarGrupos },

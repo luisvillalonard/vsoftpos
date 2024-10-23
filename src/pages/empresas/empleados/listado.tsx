@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import { useData } from "../../../hooks/useData";
-import { useEffect, useState } from "react";
-import { Empleado, Empresa } from "../../../interfaces/empresas";
-import { Table, Tooltip, Button, Row, Col, Flex, Tag, Input, Space } from "antd";
+import { Empleado } from "../../../interfaces/empresas";
+import { Table, Tooltip, Button, Flex, Tag } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
+import { ControlProps } from "../../../interfaces/globales";
 
 const EmpleadosListado = (props: Pick<ControlProps, "filter">) => {
+
     const { contextEmpleados: { state, editar, todos } } = useData();
     const { datos, procesando, recargar } = state;
     const { filter } = props;

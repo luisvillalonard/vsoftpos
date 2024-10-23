@@ -7,9 +7,8 @@ import FormDrawer from "../../../components/containters/form";
 import { Grupo } from "../../../interfaces/configuraciones";
 
 const GrupoFormulario = () => {
-    const {
-        contextGrupos: { state: { modelo, procesando }, agregar, actualizar, cancelar }
-    } = useData();
+
+    const { contextGrupos: { state: { modelo }, agregar, actualizar, cancelar } } = useData();
     const { entidad, editar, handleChangeInput } = useForm<Grupo | null | undefined>(modelo);
 
     const guardar = async () => {

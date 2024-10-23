@@ -8,6 +8,7 @@ import TextArea from "antd/es/input/TextArea";
 import { GastoTipo } from "../../../interfaces/compras";
 
 const GastoTipoFormulario = () => {
+    
     const { contextGastosTipos: { state: { modelo }, agregar, actualizar, cancelar } } = useData();
     const { entidad, editar, handleChangeInput } = useForm<GastoTipo | null | undefined>(modelo);
 

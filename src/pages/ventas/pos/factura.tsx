@@ -6,7 +6,6 @@ import Items from "./items"
 import Footer from "./footer"
 import PanelPago from "./pago"
 import { useData } from "../../../hooks/useData"
-import { useFactura } from "../../../hooks/useFactura"
 import { Colors } from "../../../hooks/useConstants"
 
 

@@ -21,8 +21,8 @@ function CuentasBancosProvider({ children }: ControlProps) {
             banco: null,
             empresa: null,
             numeroCuenta: '',
+            fechaApertura: null,
             monto: 0,
-            fechaApertuda: null,
             activa: true,
         })
     }

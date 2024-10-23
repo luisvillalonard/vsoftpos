@@ -1,4 +1,4 @@
-import { Alert, Avatar, Button, Col, Divider, Flex, Form, InputNumber, Modal, Row, Select, Space } from "antd"
+import { Alert, Avatar, Button, Divider, Flex, Form, InputNumber, Modal, Select, Space } from "antd"
 import { useEffect } from "react"
 import { ControlProps } from "../../../interfaces/globales"
 import { FormatNumber } from "../../../hooks/useUtils"

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useData } from "../../../hooks/useData";
 import Loading from "../../../components/loading";
 import PosicionesListado from "./listado";
@@ -6,9 +7,9 @@ import { Content } from "antd/es/layout/layout";
 import { Button, Col, Flex, Row } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Searcher from "../../../components/searcher";
-import { useState } from "react";
 
 const PosicionesPage = () => {
+
     const { contextPosiciones: { state: { procesando }, nuevo }} = useData();
     const [filtro, setFiltro] = useState<string>('');
 
@@ -33,7 +34,7 @@ const PosicionesPage = () => {
             </Row>
             <PosicionesListado filter={filtro} />
             <PosicionFormulario />
-            <Loading Visible={procesando} Mensaje="procesando, espere..." />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }

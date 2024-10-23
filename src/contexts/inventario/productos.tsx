@@ -41,7 +41,7 @@ function ProductosProvider({ children }: ControlProps) {
             costoCc: null,
             ventaCc: null,
             descuentoCc: null,
-            stock: null,
+            stock: [],
             foto: null,
             activo: true,
         })

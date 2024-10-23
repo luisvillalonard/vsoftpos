@@ -7,23 +7,18 @@ import { ControlProps } from "../../../interfaces/globales";
 import { GastoTipo } from "../../../interfaces/compras";
 
 const GastosTiposListado = (props: Pick<ControlProps, "filter">) => {
-    const { contextGastosTipos: { state, editar, todos } } = useData();
-    const { datos, procesando, recargar } = state;
-    const { filter } = props;
-    const { Column } = Table;
-    const url = useLocation();
+
+    const { filter = '' } = props
+    const { contextGastosTipos: { state, editar, todos } } = useData()
+    const { datos, procesando, recargar } = state
+    const { Column } = Table
+    const url = useLocation()
 
     const cargar = async () => await todos();
 
-    useEffect(() => {
-        cargar();
-    }, [url.pathname])
+    useEffect(() => { cargar() }, [url.pathname])
 
-    useEffect(() => {
-        if (recargar) {
-            cargar();
-        }
-    }, [recargar])
+    useEffect(() => { if (recargar) { cargar() } }, [recargar])
 
     return (
         <Table<GastoTipo>

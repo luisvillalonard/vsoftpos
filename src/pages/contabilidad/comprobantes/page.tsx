@@ -6,9 +6,10 @@ import { Button, Col, Flex, Row } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Searcher from "../../../components/searcher";
 import { useState } from "react";
+import Loading from "../../../components/loading";
 
 const ComprobantesPage = () => {
-    const { contextComprobantesSecuencias: { nuevo } } = useData();
+    const { contextComprobantesSecuencias: { state: { procesando }, nuevo } } = useData();
     const [filtro, setFiltro] = useState<string>('');
 
     return (
@@ -32,6 +33,7 @@ const ComprobantesPage = () => {
             </Row>
             <ComprobantesListado filter={filtro}/>
             <ComprobanteFormulario />
+            <Loading active={procesando} message="procesando, espere..." />
         </Content>
     )
 }
