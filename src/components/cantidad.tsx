@@ -1,11 +1,11 @@
 import { Button, InputNumber, Space } from "antd"
-import { ProductoPuntoVenta } from "../interfaces/inventario"
+import { ProductoPos } from "../interfaces/inventario"
 import { GoPlus } from "react-icons/go"
 import { BiMinus } from "react-icons/bi"
 
 type CantidadProductoProps = {
-    item: ProductoPuntoVenta
-    onChange: (item: ProductoPuntoVenta) => void
+    item: ProductoPos
+    onChange: (item: ProductoPos) => void
 }
 const CantidadProducto = (props: CantidadProductoProps) => {
     const { item, onChange } = props;

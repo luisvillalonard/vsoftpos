@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useData } from "../../../hooks/useData";
 import { Alerta, Exito } from "../../../hooks/useMensaje";
-import { Form, Input, InputNumber, Select, Switch } from "antd";
+import { Form, Input, InputNumber, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
 import FormDrawer from "../../../components/containters/form";
 import { Empaque } from "../../../interfaces/inventario";

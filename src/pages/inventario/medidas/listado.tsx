@@ -1,6 +1,6 @@
 import { useData } from "../../../hooks/useData";
 import { useEffect } from "react";
-import { Table, Tooltip, Button, Tag, Flex } from "antd";
+import { Table, Tooltip, Button, Flex } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { ControlProps } from "../../../interfaces/globales";

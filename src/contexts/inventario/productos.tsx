@@ -3,12 +3,12 @@ import { ACTIONS, GlobalContextState } from "../../reducers/global";
 import { ControlProps, ResponseResult } from "../../interfaces/globales";
 import { Urls } from "../../components/rutas";
 import { useReducerHook } from "../../hooks/useReducer";
-import { Producto, ProductoPuntoVenta } from "../../interfaces/inventario";
+import { Producto, ProductoPos } from "../../interfaces/inventario";
 import { useFetch } from "../../hooks/useFetch";
 
 export interface ProductoContextState<T> extends GlobalContextState<T> {
     nuevo: () => void,
-    toList: () => Promise<ResponseResult<ProductoPuntoVenta[]>>,
+    toList: () => Promise<ResponseResult<ProductoPos[]>>,
 };
 
 export const ProductosContext = createContext<ProductoContextState<Producto>>({} as ProductoContextState<Producto>)
@@ -47,20 +47,20 @@ function ProductosProvider({ children }: ControlProps) {
         })
     }
 
-    const toList = async (): Promise<ResponseResult<ProductoPuntoVenta[]>> => {
+    const toList = async (): Promise<ResponseResult<ProductoPos[]>> => {
         dispatch({ type: ACTIONS.FETCHING });
-        let resp: ResponseResult<ProductoPuntoVenta[]>;
+        let resp: ResponseResult<ProductoPos[]>;
         
         try 
         {
-            resp = await api.Get<ProductoPuntoVenta[]>(`${Urls.Inventario.Productos}/tolist`);
+            resp = await api.Get<ProductoPos[]>(`${Urls.Inventario.Productos}/tolist`);
         } catch (error: any) {
             let message = 'Situación inesperada tratando de ejecutar la petición'
             if (error instanceof Error) message = error.message
             return Promise.resolve({
                 ok: false,
                 mensaje: message,
-            } as ResponseResult<ProductoPuntoVenta[]>)
+            } as ResponseResult<ProductoPos[]>)
         }
 
         dispatch({ type: ACTIONS.FETCH_COMPLETE });

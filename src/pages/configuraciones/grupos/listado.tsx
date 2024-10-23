@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { Table, Tooltip, Button, Tag, Flex } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
-import { GetTimeFromString } from "../../../hooks/useUtils";
 import { ControlProps } from "../../../interfaces/globales";
 import { Grupo } from "../../../interfaces/configuraciones";
 
 const GruposListado = (props: Pick<ControlProps, "filter">) => {
+    
     const { contextGrupos: { state, editar, todos } } = useData();
     const { datos, procesando, recargar } = state;
     const { filter } = props;
