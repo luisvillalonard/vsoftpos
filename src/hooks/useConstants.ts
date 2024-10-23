@@ -1,7 +1,7 @@
 export const secretKey = 'D7B9F2FD64B04F18B4D1EC4869FC52BA';
 
 export const API_URL = {
-    Base: 'http://www.factuvapi.somee.com',
+    Base: 'https://www.factuvapi.somee.com',
     //Base: 'https://localhost/factuv.api',
     //Base: 'https://localhost:44340',
 
