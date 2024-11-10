@@ -1,9 +1,11 @@
-import { ResponseResult } from "../interfaces/globales";
-import { UserApp } from "../interfaces/seguridad";
-import { API_URL } from "./useConstants";
-import { getCookie } from "./useCookies";
+import { ResponseResult } from "../interfaces/globales"
+import { UserApp } from "../interfaces/seguridad"
+import { useConstants } from "./useConstants"
+import { getCookie } from "./useCookies"
 
 export const useFetch = () => {
+
+    const { API_URL } = useConstants()
 
     async function customFetch<T>(url: string, options?: RequestInit): Promise<ResponseResult<T>> {
 

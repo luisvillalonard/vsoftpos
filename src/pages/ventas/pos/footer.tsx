@@ -1,48 +1,48 @@
-import { useRef, useState } from "react"
-import { Button, Divider, Flex, Input, Space, Tooltip } from "antd"
+import { useEffect, useRef, useState } from "react"
+import { Button, Divider, Flex, Input, Space } from "antd"
 import type { InputRef } from 'antd'
 import { FormatNumber } from "../../../hooks/useUtils"
 import { useData } from "../../../hooks/useData"
 import { ControlProps } from "../../../interfaces/globales"
 import { useIconos } from "../../../hooks/useIconos"
+import PanelPos from "../../../components/containers/panelPos"
 
 const FooterFactura = (props: Pick<ControlProps, "onClick">) => {
 
     const { onClick } = props
-    const { contextFacturas: { state: { modelo: factura }, nuevo, editar } } = useData()
+    const { contextFacturas: { state: { modelo: factura }, editar } } = useData()
     const [verDescuento, setVerDescuento] = useState<boolean>(false)
-    const { IconTrash, IconEdit } = useIconos()
+    const { IconEdit } = useIconos()
     const inputRef = useRef<InputRef>(null);
 
-    const pagoDeshabilitado = () => !(factura?.cliente && factura?.items && factura.items.length > 0 && factura.total > 0)
+    const habilPagar: boolean = !(factura && factura.cliente && factura.items && factura.items.length > 0 && factura.total > 0)
 
-    const editarDescuento = () => {
-        setVerDescuento(true);
-        if (inputRef) {
-            inputRef.current?.focus({ cursor: 'all' });
+    useEffect(() => {
+        if (inputRef && inputRef.current) {
+            inputRef.current.focus({ cursor: 'all' })
         }
-    }
+    }, [inputRef])
 
     return (
-        <Space direction="vertical" size="small" style={{ width: '100%' }}>
-            <Flex justify="space-between" style={{ paddingLeft: 6, paddingRight: 6 }}>
-                <span>Subtotal</span>
-                <span style={{ fontWeight: 'bold', opacity: 0.8 }}>{FormatNumber(factura?.subTotal, 2)}</span>
+        <PanelPos style={{ padding: 0 }}>
+            <Flex justify="space-between" style={{ width: '100%', paddingLeft: 8, paddingRight: 8 }}>
+                <span>SubTotal</span>
+                <span>{FormatNumber(factura?.subTotal ?? 0, 2)}</span>
             </Flex>
-            <Divider className="m-0" />
-            <Flex justify="space-between" style={{ paddingLeft: 6, paddingRight: 6 }}>
+            <Divider dashed style={{ marginTop: 3, marginBottom: 3 }} />
+            <Flex justify="space-between" style={{ width: '100%', paddingLeft: 8, paddingRight: 8 }}>
                 <span>Itbis</span>
-                <span style={{ fontWeight: 'bold', opacity: 0.8 }}>{FormatNumber(factura?.itbis, 2)}</span>
+                <span>{FormatNumber(factura?.itbis ?? 0, 2)}</span>
             </Flex>
-            <Divider className="m-0" />
-            <Flex justify="space-between" style={{ paddingLeft: 6, paddingRight: 6 }}>
+            <Divider dashed style={{ marginTop: 3, marginBottom: 3 }} />
+            <Flex justify="space-between" style={{ width: '100%', paddingLeft: 8, paddingRight: 8, marginBottom: 5 }}>
                 <span>Descuento</span>
                 {
                     !verDescuento
                         ?
                         <Space>
-                            <Button size="small" type="text" shape="circle" icon={<IconEdit />} onClick={editarDescuento} />
-                            <span style={{ fontWeight: 'bold', opacity: 0.8 }}>{FormatNumber(factura?.descuento, 2)}</span>
+                            <Button size="small" type="text" shape="circle" icon={<IconEdit />} onClick={() => setVerDescuento(true)} />
+                            <span>{FormatNumber(factura?.descuento, 2)}</span>
                         </Space>
                         :
                         <div>
@@ -74,34 +74,21 @@ const FooterFactura = (props: Pick<ControlProps, "onClick">) => {
                 }
 
             </Flex>
-            <Space.Compact className="w-100">
-                <Tooltip title="Cancelar la factura actual">
-                    <Button
-                        danger
-                        size="large"
-                        type="text"
-                        className="p-4"
-                        style={{ borderRadius: 0 }}
-                        onClick={nuevo}>
-                        <IconTrash className="fs-3" />
-                    </Button>
-                </Tooltip>
-                <Button
-                    block
-                    size="large"
-                    type={pagoDeshabilitado() ? "text" : "primary"}
-                    className="fs-3 p-4"
-                    disabled={pagoDeshabilitado()}
-                    style={{ borderRadius: 0 }}
-                    onClick={onClick}>
-                    {
-                        factura && factura.total > 0
-                            ? `Pagar ${FormatNumber(factura.total, 2)}`
-                            : '0.00'
-                    }
-                </Button>
-            </Space.Compact>
-        </Space>
+            <Divider dashed style={{ marginTop: 3, marginBottom: 3 }} />
+            <Flex justify="space-between" style={{ width: '100%', paddingLeft: 8, paddingRight: 8, marginBottom: 3, fontSize: 16 }}>
+                <span className="fw-bold">Total</span>
+                <span className="fw-bold">{FormatNumber(factura?.total ?? 0, 2)}</span>
+            </Flex>
+            <Button
+                block
+                size="large"
+                type="primary"
+                className="fs-4"
+                disabled={habilPagar}
+                onClick={onClick}>
+                Pagar
+            </Button>
+        </PanelPos>
     )
 }
 export default FooterFactura;

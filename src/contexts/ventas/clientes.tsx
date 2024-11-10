@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Cliente } from "../../interfaces/ventas";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Cliente } from "../../interfaces/ventas"
+import { useConstants } from "../../hooks/useConstants"
 
 export interface ClienteContextState<T> extends GlobalContextState<T> {
     nuevo: () => void,
@@ -12,6 +12,8 @@ export interface ClienteContextState<T> extends GlobalContextState<T> {
 export const ClientesContext = createContext<ClienteContextState<Cliente>>({} as ClienteContextState<Cliente>)
 
 function ClientesProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Cliente>(Urls.Ventas.Clientes);
 
     const nuevo = () => {

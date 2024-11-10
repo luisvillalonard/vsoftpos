@@ -4,9 +4,10 @@ import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { Empleado } from "../../../interfaces/empresas";
 import { Col, Form, Input, InputNumber, Radio, Row, Select, Space, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 
 const EmpleadoFormulario = () => {
+    
     const {
         contextEmpleados: { state: { modelo }, agregar, actualizar, cancelar },
         contextEmpresas: { state: { datos: empresas, procesando: cargandoEmpresas }, todos: cargarEmpresas },

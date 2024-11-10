@@ -4,7 +4,7 @@ import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { Empresa } from "../../../interfaces/empresas";
 import { Col, Form, Input, Row, Select, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 
 const EmpresaFormulario = () => {
 

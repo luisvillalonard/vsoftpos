@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Almacen } from "../../interfaces/inventario";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Almacen } from "../../interfaces/inventario"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Almacen {}
 export interface AlmacenContextState<T> extends GlobalContextState<T> {
@@ -13,6 +13,8 @@ export interface AlmacenContextState<T> extends GlobalContextState<T> {
 export const AlmacenesContext = createContext<AlmacenContextState<Entidad>>({} as AlmacenContextState<Entidad>)
 
 function AlmacenesProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Inventario.Almacenes);
 
     const nuevo = () => {

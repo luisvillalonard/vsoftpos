@@ -1,41 +1,37 @@
-import { useData } from "../../../hooks/useData";
-import Loading from "../../../components/loading";
-import AlmacenesListado from "./listado";
-import AlmacenFormulario from "./formulario";
-import { Content } from "antd/es/layout/layout";
-import { Button, Col, Flex, Row } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import Searcher from "../../../components/searcher";
-import { useState } from "react";
+import { useState } from "react"
+import { Space } from "antd"
+import { useData } from "../../../hooks/useData"
+import Loading from "../../../components/containers/loading"
+import Listado from "./listado"
+import Formulario from "./formulario"
+import { useIconos } from "../../../hooks/useIconos"
+import Container from "../../../components/containers/container"
+import { useComponents } from "../../../components"
 
 const AlmacenesPage = () => {
 
-    const { contextAlmacenes: { state: { procesando }, nuevo } } = useData();
-    const [filtro, setFiltro] = useState<string>('');
+    const { contextAlmacenes: { state: { procesando }, nuevo } } = useData()
+    const [filter, setFilter] = useState<string>('')
+    const { ButtonPrimary, Searcher, TitlePage } = useComponents()
+    const { IconPlus, IconStore } = useIconos()
 
     return (
-        <Content>
-            <h1 className="fs-4 fw-bolder mb-4">Almacenes</h1>
-            <Row>
-                <Col flex="auto" className="mb-3">
-                    <Button
-                        type="primary"
-                        shape="round"
-                        icon={<PlusOutlined />}
-                        onClick={nuevo}>
-                        Nuevo Almac&eacute;n
-                    </Button>
-                </Col>
-                <Col xs={24} sm={24} md={6} lg={6} xl={6} className="mb-3">
-                    <Flex justify="flex-end">
-                        <Searcher onChange={setFiltro} />
-                    </Flex>
-                </Col>
-            </Row>
-            <AlmacenesListado filter={filtro}/>
-            <AlmacenFormulario />
-            <Loading active={procesando} message="procesando, espere..." />
-        </Content>
+        <>
+            <Container
+                title={
+                    <>
+                        <TitlePage title="Almacenes" icon={<IconStore style={{ fontSize: 24 }} />} />
+                        <Space>
+                            <ButtonPrimary icon={<IconPlus />} onClick={nuevo}>Nuevo</ButtonPrimary>
+                            <Searcher onChange={setFilter} wait={false} variant="borderless" />
+                        </Space>
+                    </>
+                }>
+                <Listado filter={filter} />
+            </Container>
+            <Formulario />
+            <Loading fullscreen active={procesando} message="procesando, espere..." />
+        </>
     )
 }
 export default AlmacenesPage;

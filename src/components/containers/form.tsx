@@ -1,6 +1,6 @@
 import { Button, Drawer, Space, Form } from "antd"
 import { Store } from "antd/es/form/interface"
-import { Colors } from "../../hooks/useConstants"
+import { useConstants } from "../../hooks/useConstants"
 import { useIconos } from "../../hooks/useIconos"
 
 type FormDrawerProps = {
@@ -22,7 +22,8 @@ const FormDrawer = (props: FormDrawerProps) => {
         name, title, open, vertical, size, placement, loading, initialValues, children,
         onClose, onFinish
     } = props
-    const { IconClose } = useIconos();
+    const { IconClose } = useIconos()
+    const { Colors } = useConstants()
 
     return (
         <Drawer
@@ -43,8 +44,6 @@ const FormDrawer = (props: FormDrawerProps) => {
                 header: {
                     paddingLeft: 10,
                     paddingRight: 10,
-                    color: Colors.White,
-                    backgroundColor: Colors.Bg.Primary
                 }
             }}>
             <Form

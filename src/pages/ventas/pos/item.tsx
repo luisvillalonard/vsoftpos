@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import { Badge, Button, Col, Flex, Row, Space } from "antd"
+import { Button, Flex, Space, theme } from "antd"
 import { ControlProps } from "../../../interfaces/globales"
 import { FormatNumber } from "../../../hooks/useUtils"
-import ButtonRemove from "../../../components/buttons/remove"
 import { useIconos } from "../../../hooks/useIconos"
-import { Colors } from "../../../hooks/useConstants"
+import { useConstants } from "../../../hooks/useConstants"
 import { FacturaDetalle } from "../../../interfaces/ventas"
 import { useFactura } from "../../../hooks/useFactura"
 
@@ -12,56 +11,68 @@ const FacturaItem = (props: Pick<ControlProps, "item">) => {
 
     const { item } = props
     const { editarCantidad, eliminarProducto } = useFactura()
-    const { IconArrowDown, IconArrowUp } = useIconos()
+    const { IconTrash, IconPlus, IconMinus } = useIconos()
+    const { Colors } = useConstants()
     const [producto, setProducto] = useState<FacturaDetalle | null>(null)
+    const { token: { colorBgContainerDisabled } } = theme.useToken()
 
-    useEffect(() => { setProducto(item) }, [item])
+    const reducir = () => {
+        if (producto && producto.cantidad > 1) {
+            editarCantidad({ ...producto, cantidad: producto.cantidad - 1 })
+        }
+    }
+
+    const aumentar = () => {
+        if (producto) {
+            editarCantidad({ ...producto, cantidad: producto.cantidad + 1 })
+        }
+    }
+
+    useEffect(() => {
+        setProducto(item)
+    }, [item])
 
     if (!producto) {
         return <></>
     }
 
     return (
-        <Row wrap={false} gutter={8}>
-            <Col flex="none">
-            </Col>
-            <Col flex="auto" className="px-1" style={{ alignSelf: 'center' }}>
-                <Flex vertical>
-                    <Space style={{ fontSize: '0.8rem', fontWeight: 'bolder' }}>
-                        <Badge
-                            size="default"
-                            count={producto.cantidad}
-                            style={{ backgroundColor: Colors.Bg.Primary, fontSize: 12 }}
-                        />
-                        {item.producto}
-                    </Space>
-                    <Space>
-                        <Button
-                            size="small" shape="circle" type="text"
-                            icon={<IconArrowUp style={{ color: Colors.Font.Success }} />}
-                            onClick={() => editarCantidad({ ...producto, cantidad: producto.cantidad + 1 })} />
-                        <Button
-                            disabled={producto.cantidad === 1}
-                            size="small" shape="circle" type="text"
-                            icon={<IconArrowDown style={{ 
-                                color: producto.cantidad > 1 ? Colors.Font.Danger : 'inherit',
-                                opacity: producto.cantidad > 1 ? 1 : 0.6
-                            }} />}
-                            onClick={() => {
-                                if (producto.cantidad > 1) {
-                                    editarCantidad({ ...producto, cantidad: producto.cantidad - 1 })
-                                }
-                            }} />
-                    </Space>
+        <Flex vertical gap={0} style={{ width: '100%' }}>
+            <Flex justify="space-between" style={{ width: '100%' }}>
+                <div>{producto.producto}</div>
+                <Space>
+                    <Button
+                        danger
+                        size="small"
+                        type="text"
+                        shape="circle"
+                        onClick={() => eliminarProducto(producto)}>
+                        <IconTrash />
+                    </Button>
+                </Space>
+            </Flex>
+            <Flex justify="space-between" style={{ width: '100%' }}>
+                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{FormatNumber(producto.total, 2)}</span>
+                <Flex gap={5} align="center" style={{ borderRadius: 14, padding: 2, background: colorBgContainerDisabled }}>
+                    <Button
+                        size="small"
+                        type="text"
+                        shape="circle"
+                        onClick={aumentar}>
+                        <IconPlus style={{ color: Colors.Bg.Primary }} />
+                    </Button>
+                    <span style={{ width: 18, textAlign: 'center' }}>{producto.cantidad}</span>
+                    <Button
+                        danger
+                        size="small"
+                        type="text"
+                        shape="circle"
+                        onClick={reducir}>
+                        <IconMinus style={{ color: Colors.Bg.Success }} />
+                    </Button>
                 </Flex>
-            </Col>
-            <Col flex="none" style={{ alignSelf: 'center' }}>
-                <span style={{ fontWeight: 'bold', opacity: 0.8 }}>{FormatNumber(producto.total * producto.cantidad, 2)}</span>
-            </Col>
-            <Col flex="none" style={{ alignSelf: 'center' }}>
-                <ButtonRemove size="small" buttonCircle={true} onClick={() => eliminarProducto(producto)} />
-            </Col>
-        </Row>
+            </Flex>
+        </Flex>
     )
 }
 export default FacturaItem;

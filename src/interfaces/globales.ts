@@ -6,8 +6,9 @@ import { IconType } from 'react-icons';
 
 export interface ControlProps {
     children: JSX.Element | JSX.Element[],
-    title?: string,
+    title?: string | React.ReactNode,
     icon?: React.ReactElement | JSX.Element | IconType,
+    extra: React.ReactNode,
     message?: string,
 
     item?: any,
@@ -31,12 +32,12 @@ export interface ControlProps {
     setFocus?: () => void,
 }
 
-export interface MenuItems {
+export interface MenuItem {
     key: string,
     label: string,
     element?: JSX.Element,
     icon?: JSX.Element,
-    children?: MenuItems[]
+    children?: MenuItem[]
 }
 
 export interface RequestFilter {

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { MdOutlineNoPhotography } from "react-icons/md";
-import { Anexo } from "../interfaces/globales";
+import { Anexo } from "../../interfaces/globales";
 
 type ImagenProps = {
     Item: Anexo | null | undefined,

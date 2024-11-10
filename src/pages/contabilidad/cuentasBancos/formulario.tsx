@@ -4,7 +4,7 @@ import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { CuentaBanco } from "../../../interfaces/contabilidad";
 import { Form, Input, InputNumber, Select } from "antd";
 import { useForm } from "../../../hooks/useForm";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 
 const CuentaBancoFormulario = () => {
     const {

@@ -3,7 +3,7 @@ import { useData } from "../../../hooks/useData";
 import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { Form, Input, InputNumber, Space, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 import { CondicionPago } from "../../../interfaces/configuraciones";
 
 const CondicionPagoFormulario = () => {

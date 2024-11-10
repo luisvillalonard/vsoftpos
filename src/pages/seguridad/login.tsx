@@ -1,19 +1,19 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button, Checkbox, Form, Input, Alert, Card, Col, Divider, Flex, Layout, Space, theme } from "antd"
+import { Button, Checkbox, Form, Input, Alert, Card, Col, Divider, Flex, Layout, Space, theme, Spin } from "antd"
 import { useData } from "../../hooks/useData";
 import { Login, UserApp } from "../../interfaces/seguridad"
-import { Urls } from "../../components/rutas"
 import { ResponseResult } from "../../interfaces/globales"
 import { useIconos } from "../../hooks/useIconos"
 import { useForm } from "../../hooks/useForm"
-import Loading from "../../components/loading"
+import { useConstants } from "../../hooks/useConstants";
 
 const LoginPage = () => {
 
     const { contextAuth: { state: { procesando }, validar } } = useData()
     const { token: { colorPrimary, colorTextSecondary } } = theme.useToken()
-    const { IconUser, IconLock } = useIconos()
+    const { IconUser, IconLock, IconLoading } = useIconos()
+    const { Urls } = useConstants()
     const { entidad: user } = useForm<Login>({ acceso: '', clave: '', recuerdame: true })
     const [result, setResult] = useState<ResponseResult<UserApp> | null>(null)
     const nav = useNavigate()
@@ -39,6 +39,7 @@ const LoginPage = () => {
                 <Col md={18} sm={20} xs={22} style={{ alignItems: 'center' }}>
                     <Col xl={{ span: 8, offset: 14 }} lg={{ span: 10, offset: 14 }} md={{ span: 12, offset: 12 }} sm={24} xs={24}>
                         <Card
+                            style={{ position: 'relative' }}
                             styles={{
                                 body: {
                                     padding: 20
@@ -46,7 +47,7 @@ const LoginPage = () => {
                             }}>
                             <Flex
                                 vertical
-                                className="h-100 position-relative"
+                                className="h-100"
                                 align="center">
                                 <Space align="center" size={0}>
                                     <span className="display-5" style={{ fontWeight: 'bold', color: colorPrimary }}>FACTU</span>
@@ -56,19 +57,19 @@ const LoginPage = () => {
                                 <Divider className="my-3" />
                                 {
                                     result && !result.ok
-                                    ? <Alert type="error" closable={false} showIcon message={result.mensaje} className="w-100 mb-3" />
-                                    : <></>
+                                        ? <Alert type="error" closable={false} showIcon message={result.mensaje} className="w-100 mb-3" />
+                                        : <></>
                                 }
                                 <Form
                                     name="formLogin"
                                     size="large"
                                     layout="vertical"
+                                    autoComplete="off"
                                     className="w-100"
                                     initialValues={user}
                                     onFinish={onFinish}
                                 >
                                     <Form.Item
-                                        label="Usuario"
                                         name="acceso"
                                         required={false}
                                         rules={[{ required: true, message: 'Obligatorio', }]}
@@ -76,19 +77,21 @@ const LoginPage = () => {
                                         <Input
                                             name="acceso"
                                             value={user.acceso}
+                                            readOnly={procesando}
                                             prefix={<IconUser className="fs-5" />}
                                             placeholder="coloque aqui el usuario" />
                                     </Form.Item>
                                     <Form.Item
-                                        label="Clave"
                                         name="clave"
                                         required={false}
                                         rules={[{ required: true, message: 'Obligatorio' }]}
+                                        style={{ marginBottom: 8 }}
                                     >
                                         <Input
                                             name="clave"
                                             type="password"
                                             value={user.clave}
+                                            readOnly={procesando}
                                             prefix={<IconLock className="fs-5" />}
                                             placeholder="coloque aqui la clave" />
                                     </Form.Item>
@@ -101,12 +104,19 @@ const LoginPage = () => {
                                         </Flex>
                                     </Form.Item>
                                     <Form.Item>
-                                        <Button block type="primary" shape="round" htmlType="submit">
-                                            Aceptar
+                                        <Button block type="primary" shape="round" htmlType="submit" disabled={procesando}>
+                                            {
+                                                procesando
+                                                    ?
+                                                    <Flex gap={10}>
+                                                        <IconLoading style={{ fontSize: 22 }} />
+                                                        <span>Validando, espere...</span>
+                                                    </Flex>
+                                                    : <span>Iniciar Sesi&oacute;n</span>
+                                            }
                                         </Button>
                                     </Form.Item>
                                 </Form>
-                                <Loading active={procesando} message="Procesando, espere..." />
                             </Flex>
                         </Card>
                     </Col>

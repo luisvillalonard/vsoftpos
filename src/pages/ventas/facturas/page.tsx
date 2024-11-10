@@ -1,22 +1,32 @@
-import FacturasListado from "./listado";
-import { Content } from "antd/es/layout/layout";
-import { Col, Row } from "antd";
-import Searcher from "../../../components/searcher";
-import { useState } from "react";
+import { useState } from "react"
+import { Space } from "antd"
+import { useData } from "../../../hooks/useData"
+import Listado from "./listado"
+import { useComponents } from "../../../components"
+import { useIconos } from "../../../hooks/useIconos"
 
 const FacturasPage = () => {
-    const [filtro, setFiltro] = useState<string>('');
+    
+    const { contextHorarios: { state: { procesando } } } = useData()
+    const [filter, setFilter] = useState<string>('')
+    const { Container, TitlePage, Searcher, Loading } = useComponents()
+    const { IconInvoice } = useIconos()
 
     return (
-        <Content>
-            <h1 className="fs-4 fw-bolder mb-4">Facturas</h1>
-            <Row>
-                <Col span={8} offset={16} className="mb-3">
-                    <Searcher onChange={setFiltro} />
-                </Col>
-            </Row>
-            <FacturasListado filter={filtro}/>
-        </Content>
+        <>
+            <Container
+                title={
+                    <>
+                        <TitlePage title="Facturas" icon={<IconInvoice style={{ fontSize: 24 }} />} />
+                        <Space>
+                            <Searcher onChange={setFilter} wait={false} variant="borderless" />
+                        </Space>
+                    </>
+                }>
+                <Listado filter={filter}/>
+            </Container>
+            <Loading fullscreen active={procesando} message="procesando, espere..." />
+        </>
     )
 }
 export default FacturasPage;

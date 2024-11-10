@@ -1,16 +1,19 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { Input, Tooltip } from "antd"
-import type { InputRef } from 'antd'
-import { ControlProps } from "../interfaces/globales"
-import { useIconos } from "../hooks/useIconos"
+import type { InputProps, InputRef } from 'antd'
+import { ControlProps } from "../../interfaces/globales"
+import { useIconos } from "../../hooks/useIconos"
+import { useConstants } from "../../hooks/useConstants"
 
-const Searcher = (props: Pick<ControlProps, "wait" | "onChange" | "style">) => {
+const Searcher = (props: Pick<ControlProps, Required<"onChange"> | "wait" | "style"> & Pick<InputProps, "variant">) => {
 
-    const { wait = true, style, onChange } = props
+    const { wait = true, variant, style, onChange } = props
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
     const inputRef = useRef<InputRef>(null)
     const [filter, setFilter] = useState<string>('')
     const { IconSearch } = useIconos()
+    const { Colors } = useConstants()
+    const noBorder = variant && variant === "borderless"
 
     useEffect(() => {
         if (inputRef) {
@@ -30,7 +33,14 @@ const Searcher = (props: Pick<ControlProps, "wait" | "onChange" | "style">) => {
                 suffix={<IconSearch />}
                 ref={inputRef}
                 value={filter}
-                style={style}
+                style={{
+                    ...style,
+                    borderBottomStyle: noBorder ? 'solid' : 'initial',
+                    borderBottomWidth: noBorder ? 1 : 'initial',
+                    borderBottomColor: noBorder ? Colors.Border.Secondary : 'inherit',
+                    borderRadius: noBorder ? 0 : 6,
+                }}
+                variant={variant}
                 onKeyUp={(evt) => {
                     if (evt.code.toLowerCase() === 'escape') setFilter('')
                 }}

@@ -1,9 +1,9 @@
 import { createContext } from "react";
 import { GlobalContextState } from "../../reducers/global";
 import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
 import { useReducerHook } from "../../hooks/useReducer";
 import { Billete } from "../../interfaces/auxiliares";
+import { useConstants } from "../../hooks/useConstants";
 
 interface Entidad extends Billete {}
 
@@ -12,6 +12,8 @@ export const BilletesContext = createContext<Pick<GlobalContextState<Entidad>, "
 )
 
 function BilletesProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, todos } = useReducerHook<Entidad>(Urls.Auxiliares.Generos);
 
     return (

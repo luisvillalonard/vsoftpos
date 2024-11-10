@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { Empresa } from "../../interfaces/empresas";
-import { useReducerHook } from "../../hooks/useReducer";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { Empresa } from "../../interfaces/empresas"
+import { useReducerHook } from "../../hooks/useReducer"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Empresa {}
 export interface EmpresaContextState<T> extends GlobalContextState<T> {
@@ -13,6 +13,8 @@ export interface EmpresaContextState<T> extends GlobalContextState<T> {
 export const EmpresasContext = createContext<EmpresaContextState<Entidad>>({} as EmpresaContextState<Entidad>)
 
 function EmpresasProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Empresas.Base);
 
     const nuevo = () => {

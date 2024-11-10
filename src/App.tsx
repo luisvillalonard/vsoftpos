@@ -6,15 +6,12 @@ import { useEffect } from 'react'
 import { Layout } from 'antd'
 import { useData } from './hooks/useData';
 import LoginPage from './pages/seguridad/login'
-import RutasApp from './components/rutas'
-import { Content } from 'antd/es/layout/layout'
-import StyleProvider from './components/providers/styles';
-import MenuApp from './components/layout/menu';
-import HeaderApp from './components/layout/header';
+import { useComponents } from './components';
 
 function App() {
 
   const { contextAuth: { state: { user }, getUser } } = useData()
+  const { StyleProvider, HeaderApp, MenuApp, RutasApp } = useComponents()
 
   useEffect(() => {
     getUser();
@@ -26,13 +23,13 @@ function App() {
 
   return (
     <StyleProvider>
-      <Layout className='vh-100'>
+      <Layout className='h-100 overflow-hidden'>
         <HeaderApp />
         <Layout>
           <MenuApp />
-          <Content style={{ overflow: 'auto', padding: 16 }}>
+          <Layout className='body-content'>
             <RutasApp />
-          </Content>
+          </Layout>
         </Layout>
       </Layout>
     </StyleProvider>

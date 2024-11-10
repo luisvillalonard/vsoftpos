@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Genero } from "../../interfaces/auxiliares";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Genero } from "../../interfaces/auxiliares"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Genero {}
 
@@ -12,6 +12,8 @@ export const GenerosContext = createContext<Pick<GlobalContextState<Entidad>, "s
 )
 
 function GenerosProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, todos } = useReducerHook<Entidad>(Urls.Auxiliares.Generos);
 
     return (

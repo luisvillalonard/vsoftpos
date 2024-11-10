@@ -1,10 +1,10 @@
-import { createContext } from "react";
-import { ACTIONS, GlobalContextState } from "../../reducers/global";
-import { ControlProps, ResponseResult } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Producto, ProductoPos } from "../../interfaces/inventario";
-import { useFetch } from "../../hooks/useFetch";
+import { createContext } from "react"
+import { ACTIONS, GlobalContextState } from "../../reducers/global"
+import { ControlProps, ResponseResult } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Producto, ProductoPos } from "../../interfaces/inventario"
+import { useFetch } from "../../hooks/useFetch"
+import { useConstants } from "../../hooks/useConstants"
 
 export interface ProductoContextState<T> extends GlobalContextState<T> {
     nuevo: () => void,
@@ -14,6 +14,8 @@ export interface ProductoContextState<T> extends GlobalContextState<T> {
 export const ProductosContext = createContext<ProductoContextState<Producto>>({} as ProductoContextState<Producto>)
 
 function ProductosProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, dispatch, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Producto>(Urls.Inventario.Productos);
     const api = useFetch();
 

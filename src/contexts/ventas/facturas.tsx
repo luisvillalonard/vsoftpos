@@ -1,10 +1,10 @@
-import { createContext } from "react";
-import { ACTIONS, GlobalContextState } from "../../reducers/global";
-import { ControlProps, ResponseResult } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Factura, FacturaPago } from "../../interfaces/ventas";
-import { useFetch } from "../../hooks/useFetch";
+import { createContext } from "react"
+import { ACTIONS, GlobalContextState } from "../../reducers/global"
+import { ControlProps, ResponseResult } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Factura, FacturaPago } from "../../interfaces/ventas"
+import { useFetch } from "../../hooks/useFetch"
+import { useConstants } from "../../hooks/useConstants"
 
 export interface FacturaContextState<T> extends GlobalContextState<T> {
     nuevo: () => void,
@@ -15,6 +15,8 @@ export interface FacturaContextState<T> extends GlobalContextState<T> {
 export const FacturasContext = createContext<FacturaContextState<Factura>>({} as FacturaContextState<Factura>)
 
 function FacturasProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, dispatch, editar, cancelar, agregar, actualizar, todos, errorResult } = useReducerHook<Factura>(Urls.Ventas.Facturas);
     const api = useFetch()
 

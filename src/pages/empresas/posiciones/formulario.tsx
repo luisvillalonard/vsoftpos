@@ -5,7 +5,7 @@ import { Posicion } from "../../../interfaces/empresas";
 import { Form, Input, InputNumber, Select, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
 import TextArea from "antd/es/input/TextArea";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 
 const PosicionFormulario = () => {
     const {

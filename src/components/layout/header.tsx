@@ -3,7 +3,7 @@ import { useData } from "../../hooks/useData"
 import { Confirmacion } from "../../hooks/useMensaje"
 import { navUrl } from "../../hooks/useUtils"
 import { useIconos } from "../../hooks/useIconos"
-import { Urls } from "./../rutas"
+import { useConstants } from "../../hooks/useConstants"
 
 const HeaderApp = () => {
 
@@ -11,28 +11,37 @@ const HeaderApp = () => {
   const { Header } = Layout
   const { token: { colorBgContainer, colorPrimary, colorTextSecondary } } = theme.useToken()
   const { IconMenu, IconAlert, IconUser, IconLogout } = useIconos()
+  const { Urls } = useConstants()
+  const headerStyle: React.CSSProperties = {
+    display: 'flex', 
+    alignItems: 'center', 
+    paddingLeft: 16, 
+    paddingRight: 16, 
+    background: colorBgContainer, 
+    borderBottom: '1px solid gray'
+  }
 
   return (
-    <Header style={{ background: colorBgContainer, paddingLeft: 16, paddingRight: 16, display: 'flex', alignItems: 'center' }}>
+    <Header style={headerStyle}>
       <Flex style={{ width: '100%' }} justify="space-between">
-        <Space size="small" style={{ height: '100%' }}>
-          <Space align="center" size={0}>
-            <span className="fs-3" style={{ fontWeight: 600, color: colorPrimary }}>FACTU</span>
-            <span className="fs-3" style={{ fontWeight: 600, color: colorTextSecondary }}>V</span>
-          </Space>
+        <Flex gap={10} align="center" style={{ height: '100%' }}>
+          <Flex align="center">
+            <span style={{ fontSize: 30, fontWeight: 600, color: colorPrimary }}>FACTU</span>
+            <span style={{ fontSize: 30, fontWeight: 600, color: colorTextSecondary }}>V</span>
+          </Flex>
           <Button
             type="text"
             shape="circle"
-            icon={<IconMenu className="fs-5" />}
+            icon={<IconMenu style={{ fontSize: 22 }} />}
             onClick={showMenu}
           />
-        </Space>
+        </Flex>
         <Flex gap={16} align="center">
           <Tooltip title="Alertas">
             <Button
               type="text"
               shape="circle"
-              icon={<IconAlert className="fs-5" />}
+              icon={<IconAlert style={{ fontSize: 19 }} />}
               onClick={showUserInfo}
             />
           </Tooltip>
@@ -40,7 +49,7 @@ const HeaderApp = () => {
             <Button
               type="text"
               shape="circle"
-              icon={<IconUser className="fs-5" />}
+              icon={<IconUser style={{ fontSize: 19 }} />}
               onClick={showUserInfo}
             />
           </Tooltip>
@@ -48,7 +57,7 @@ const HeaderApp = () => {
             <Button
               type="text"
               shape="circle"
-              icon={<IconLogout className="fs-5" />}
+              icon={<IconLogout style={{ fontSize: 18 }} />}
               onClick={async () => {
                 await Confirmacion('Esta seguro(a) que desea cerrar la sesión?')
                   .then((resp) => {

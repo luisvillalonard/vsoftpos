@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { FormaPago } from "../../interfaces/configuraciones";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { FormaPago } from "../../interfaces/configuraciones"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends FormaPago {}
 export interface FormaPagoContextState<T> extends GlobalContextState<T> {
@@ -13,6 +13,8 @@ export interface FormaPagoContextState<T> extends GlobalContextState<T> {
 export const FormaPagosContext = createContext<FormaPagoContextState<Entidad>>({} as FormaPagoContextState<Entidad>)
 
 function FormaPagosProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Configuraciones.FormasPago);
 
     const nuevo = () => {

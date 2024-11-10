@@ -1,10 +1,10 @@
-import { createContext, useReducer } from "react";
-import { ControlProps, ResponseResult } from "../../interfaces/globales";
-import { Login, UserApp } from "../../interfaces/seguridad";
-import { useFetch } from "../../hooks/useFetch";
-import authReducer, { initState } from "../../reducers/auth";
-import { getCookie, removeCookie, setCookie } from "../../hooks/useCookies";
-import { Urls } from "../../components/rutas";
+import { createContext, useReducer } from "react"
+import { ControlProps, ResponseResult } from "../../interfaces/globales"
+import { Login, UserApp } from "../../interfaces/seguridad"
+import { useFetch } from "../../hooks/useFetch"
+import authReducer, { initState } from "../../reducers/auth"
+import { getCookie, removeCookie, setCookie } from "../../hooks/useCookies"
+import { useConstants } from "../../hooks/useConstants"
 
 export interface AuthState {
     user: UserApp | null;
@@ -28,12 +28,14 @@ export const AuthContext = createContext<AuthReducerState>({} as AuthReducerStat
 
 export const AuthProvider = ({ children }: ControlProps) => {
 
+
+    const { Urls } = useConstants()
     const [state, dispatch] = useReducer(authReducer, initState);
     const api = useFetch();
 
     const validar = async (user: Login): Promise<ResponseResult<UserApp>> => {
         dispatch({ type: 'FETCHING' })
-        const resp = await api.Post<UserApp>(Urls.Seguridad.Usuarios.Validar, user);
+        const resp = await api.Post<UserApp>(`${Urls.Seguridad.Usuarios}/${Urls.Seguridad.Validar}`, user);
         if (resp.ok) {
             LoggedIn(resp.datos as UserApp);
         }

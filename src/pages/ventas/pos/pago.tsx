@@ -1,13 +1,13 @@
-import { Alert, Avatar, Button, Divider, Flex, Form, InputNumber, Modal, Select, Space } from "antd"
 import { useEffect } from "react"
+import { Alert, Avatar, Button, Divider, Drawer, Flex, Form, InputNumber, Select, Space, Tooltip } from "antd"
 import { ControlProps } from "../../../interfaces/globales"
-import { FormatNumber } from "../../../hooks/useUtils"
 import { Alerta, Exito } from "../../../hooks/useMensaje"
-import { FacturaPago } from "../../../interfaces/ventas";
-import { AiOutlineClose } from "react-icons/ai";
-import { IoCheckmark } from "react-icons/io5";
 import { useFactura } from "../../../hooks/useFactura"
-import { Colors } from "../../../hooks/useConstants"
+import { IoCheckmark } from "react-icons/io5"
+import { FacturaPago } from "../../../interfaces/ventas"
+import { useConstants } from "../../../hooks/useConstants"
+import { AiOutlineClose } from "react-icons/ai"
+import { FormatNumber } from "../../../hooks/useUtils"
 
 const FacturaPanelPago = (props: Pick<ControlProps, "isOpen" | "onCancel">) => {
 
@@ -16,6 +16,7 @@ const FacturaPanelPago = (props: Pick<ControlProps, "isOpen" | "onCancel">) => {
         factura, tiposFacturas, formasPago, secuencias, cargandoComprobantes, errores,
         editar, cargarSecuencias, pagaFactura
     } = useFactura()
+    const { Colors } = useConstants()
 
     const cerrar = () => { onCancel && onCancel(null) }
 
@@ -48,25 +49,11 @@ const FacturaPanelPago = (props: Pick<ControlProps, "isOpen" | "onCancel">) => {
     }
 
     return (
-        <Modal
+        <Drawer
             open={isOpen}
-            closable={false}
-            centered
-            footer={
-                <Space.Compact className="w-100">
-                    <Button size="large" type="text" htmlType="button" className="fs-5 p-4" onClick={cerrar} style={{ borderRadius: 0 }}>
-                        <AiOutlineClose />
-                        Cerrar
-                    </Button>
-                    <Button block size="large" type="primary" htmlType="submit" form="formPagoFactura" className="fs-3 p-4" style={{ borderRadius: 0 }}>
-                        {
-                            factura && factura.total > 0
-                                ? `Pagar ${FormatNumber(factura.total, 2)}`
-                                : '0.00'
-                        }
-                    </Button>
-                </Space.Compact>
-            }>
+            placement="right"
+            getContainer={false}
+            closable={false}>
             <Flex
                 vertical
                 className="h-100">
@@ -127,39 +114,40 @@ const FacturaPanelPago = (props: Pick<ControlProps, "isOpen" | "onCancel">) => {
                     </Form.Item>
 
                     <Divider orientation="left" className="mt-4 mb-2" style={{ borderColor: Colors.Bg.Primary }}>Formas de Pago</Divider>
-                    <Flex wrap gap={10}>
-                        {
-                            formasPago.map((item, index) => {
-                                return (
-                                    <Space key={index} direction="vertical" size={2}>
-                                        <label>{item.nombre}</label>
-                                        <InputNumber
-                                            defaultValue={0}
-                                            onFocus={(evt) => evt.currentTarget.select()}
-                                            onChange={(value) => {
-                                                const pago = {
-                                                    formaPago: item,
-                                                    monto: value ?? 0,
-                                                    fecha: factura.fechaEmision
-                                                } as FacturaPago;
-                                                if (factura.pagos.filter(old => old.formaPago?.id === item.id)[0]) {
-                                                    editar({
-                                                        ...factura,
-                                                        pagos: factura.pagos.map(old => old.formaPago?.id === item.id ? pago : old)
-                                                    })
-                                                } else {
-                                                    editar({
-                                                        ...factura,
-                                                        pagos: [pago]
-                                                    })
-                                                }
-                                            }} />
-                                    </Space>
-                                )
-                            })
-                        }
-                    </Flex>
-
+                    <Form.Item style={{ marginBottom: 10}}>
+                        <Flex wrap gap={10}>
+                            {
+                                formasPago.map((item, index) => {
+                                    return (
+                                        <Space key={index} direction="vertical" size={2}>
+                                            <label>{item.nombre}</label>
+                                            <InputNumber
+                                                defaultValue={0}
+                                                onFocus={(evt) => evt.currentTarget.select()}
+                                                onChange={(value) => {
+                                                    const pago = {
+                                                        formaPago: item,
+                                                        monto: value ?? 0,
+                                                        fecha: factura.fechaEmision
+                                                    } as FacturaPago;
+                                                    if (factura.pagos.filter(old => old.formaPago?.id === item.id)[0]) {
+                                                        editar({
+                                                            ...factura,
+                                                            pagos: factura.pagos.map(old => old.formaPago?.id === item.id ? pago : old)
+                                                        })
+                                                    } else {
+                                                        editar({
+                                                            ...factura,
+                                                            pagos: [pago]
+                                                        })
+                                                    }
+                                                }} />
+                                        </Space>
+                                    )
+                                })
+                            }
+                        </Flex>
+                    </Form.Item>
                     {
                         errores.length === 0
                             ? <></>
@@ -172,9 +160,26 @@ const FacturaPanelPago = (props: Pick<ControlProps, "isOpen" | "onCancel">) => {
                                     errores.map((err, index) => <div key={index}>- {err}</div>)
                                 } />
                     }
+                    <Form.Item style={{ width: '100%' }}>
+                        <Flex align="center" style={{ width: '100%' }}>
+                            <Tooltip title="Cancelar la factura actual">
+                                <Button size="large" type="text" htmlType="button" onClick={cerrar}>
+                                    <AiOutlineClose />
+                                    Cerrar
+                                </Button>
+                            </Tooltip>
+                            <Button block size="large" type="primary" htmlType="submit" form="formPagoFactura" style={{ fontSize: 22 }}>
+                                {
+                                    factura && factura.total > 0
+                                        ? `Pagar ${FormatNumber(factura.total, 2)}`
+                                        : '0.00'
+                                }
+                            </Button>
+                        </Flex>
+                    </Form.Item>
                 </Form>
             </Flex>
-        </Modal>
+        </Drawer>
     )
 }
 export default FacturaPanelPago;

@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Suplidor } from "../../interfaces/compras";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Suplidor } from "../../interfaces/compras"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Suplidor {}
 export interface SuplidorContextState<T> extends GlobalContextState<T> {
@@ -13,6 +13,8 @@ export interface SuplidorContextState<T> extends GlobalContextState<T> {
 export const SuplidoresContext = createContext<SuplidorContextState<Entidad>>({} as SuplidorContextState<Entidad>)
 
 function SuplidoresProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Compras.Suplidores);
 
     const nuevo = () => {

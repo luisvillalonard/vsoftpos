@@ -1,8 +1,10 @@
-import { Button, Result } from "antd";
-import { Urls } from "../components/rutas";
-import { useNavigate } from "react-router-dom";
+import { Button, Result } from "antd"
+import { useNavigate } from "react-router-dom"
+import { useConstants } from "../hooks/useConstants"
 
 const PageNotFound = () => {
+    
+    const { Urls } = useConstants()
     const nav = useNavigate()
 
     return (

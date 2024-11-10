@@ -5,7 +5,7 @@ import { Alerta, Exito } from "../../../hooks/useMensaje"
 import { Factura, FacturaPago } from "../../../interfaces/ventas"
 import { ControlProps } from "../../../interfaces/globales"
 import { FormatDate_DDMMYYYY, FormatNumber } from "../../../hooks/useUtils"
-import { Colors } from "../../../hooks/useConstants"
+import { useConstants } from "../../../hooks/useConstants"
 
 const FacturaPagoFormulario = (props: Pick<ControlProps, "item" | "onCancel">) => {
 
@@ -14,6 +14,7 @@ const FacturaPagoFormulario = (props: Pick<ControlProps, "item" | "onCancel">) =
         contextFacturas: { pago },
         contextFormasPago: { state: { datos: formasPago, procesando: cargandoFormasPago }, todos: cargarFormasPago },
     } = useData()
+    const { Colors } = useConstants()
     const [factura, setFactura] = useState<Factura | null>(null)
     const [pagos, setPagos] = useState<FacturaPago[]>([])
 

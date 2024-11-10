@@ -4,7 +4,7 @@ import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { Banco } from "../../../interfaces/contabilidad";
 import { Form, Input, Space, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 
 const BancoFormulario = () => {
     const { contextBancos: { state: { modelo }, agregar, actualizar, cancelar } } = useData();

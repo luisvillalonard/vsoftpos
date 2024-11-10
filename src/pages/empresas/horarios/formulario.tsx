@@ -4,9 +4,10 @@ import { Alerta, Exito } from "../../../hooks/useMensaje";
 import { Horario } from "../../../interfaces/empresas";
 import { Form, Input, Select, Switch } from "antd";
 import { useForm } from "../../../hooks/useForm";
-import FormDrawer from "../../../components/containters/form";
+import FormDrawer from "../../../components/containers/form";
 
 const HorariosFormulario = () => {
+
     const {
         contextHorarios: { state: { modelo }, agregar, actualizar, cancelar },
         contextEmpresas: { state: { datos: empresas, procesando: cargandoEmpresas }, todos: cargarEmpresas }
@@ -73,6 +74,8 @@ const HorariosFormulario = () => {
             </Form.Item>
             <Form.Item label="Empresa" name="empresaId" rules={[{ required: true, message: 'Obligatorio' }]}>
                 <Select
+                    allowClear
+                    showSearch
                     loading={cargandoEmpresas}
                     value={entidad.empresa?.id}
                     labelRender={(item) => !item ? <></> : <label>{item.label}</label>}

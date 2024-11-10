@@ -1,38 +1,37 @@
-import { useData } from "../../../hooks/useData";
-import ProductosListado from "./listado";
-import ProductoFormulario from "./formulario";
-import { Content } from "antd/es/layout/layout";
-import { Button, Col, Flex, Row } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import Searcher from "../../../components/searcher";
-import { useState } from "react";
+import { useState } from "react"
+import { Space } from "antd"
+import { useData } from "../../../hooks/useData"
+import Loading from "../../../components/containers/loading"
+import Listado from "./listado"
+import Formulario from "./formulario"
+import { useIconos } from "../../../hooks/useIconos"
+import Container from "../../../components/containers/container"
+import { useComponents } from "../../../components"
 
 const ProductosPage = () => {
-    const { contextProductos: { nuevo } } = useData();
-    const [filtro, setFiltro] = useState<string>('');
+
+    const { contextProductos: { state: { procesando }, nuevo } } = useData()
+    const [filter, setFilter] = useState<string>('')
+    const { ButtonPrimary, Searcher, TitlePage } = useComponents()
+    const { IconPlus, IconProducts } = useIconos()
 
     return (
-        <Content>
-            <h1 className="fs-4 fw-bolder mb-4">Productos y Servicios</h1>
-            <Row>
-                <Col flex="auto" className="mb-3">
-                    <Button
-                        type="primary"
-                        shape="round"
-                        icon={<PlusOutlined />}
-                        onClick={nuevo}>
-                        Nuevo Producto
-                    </Button>
-                </Col>
-                <Col xs={24} sm={24} md={6} lg={6} xl={6} className="mb-3">
-                    <Flex justify="flex-end">
-                        <Searcher onChange={setFiltro} />
-                    </Flex>
-                </Col>
-            </Row>
-            <ProductosListado filter={filtro}/>
-            <ProductoFormulario />
-        </Content>
+        <>
+            <Container
+                title={
+                    <>
+                        <TitlePage title="Productos y Servicios" icon={<IconProducts style={{ fontSize: 24 }} />} />
+                        <Space>
+                            <ButtonPrimary icon={<IconPlus />} onClick={nuevo}>Nuevo</ButtonPrimary>
+                            <Searcher onChange={setFilter} wait={false} variant="borderless" />
+                        </Space>
+                    </>
+                }>
+                <Listado filter={filter}/>
+            </Container>
+            <Formulario />
+            <Loading fullscreen active={procesando} message="procesando, espere..." />
+        </>
     )
 }
 export default ProductosPage;

@@ -201,3 +201,11 @@ export function stringifyObjectKeyValues<T extends Record<string, any>>(obj: T) 
         [key]: JSON.stringify(obj[key])
     }), {} as { [K in keyof T]: string })
 }
+
+export function ToTitleCase(value: string) {
+    const newStr = value.split(' ')
+        .map(w => w[0].toUpperCase() + w.substring(1).toLowerCase())
+        .join(' ');
+
+    return newStr;
+}

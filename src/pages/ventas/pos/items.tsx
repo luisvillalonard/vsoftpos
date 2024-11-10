@@ -1,24 +1,28 @@
-import { Divider, Flex, Space } from "antd"
+import { Divider, Space } from "antd"
 import FacturaItem from "./item"
 import { useFactura } from "../../../hooks/useFactura"
+import PanelPos from "../../../components/containers/panelPos"
 
 const FacturaItems = () => {
     const { factura } = useFactura()
 
     return (
-        <Flex
-            vertical
-            className="h-100 overflow-y-auto overflow-x-hidden">
+        <PanelPos title="Productos / Servicios" style={{ width: '100%', height: '100%' }}>
             {
-                !factura || !factura.items || factura.items.length === 0
-                    ? <Space style={{ padding: '0px 22px' }}>0 items</Space>
-                    :
-                    <Space direction="vertical" split={<Divider className="m-0" style={{ padding: 0 }} />}>
-                        {factura?.items.map((item, index) => <FacturaItem key={index} item={item} />)}
-                    </Space>
+                factura && factura.items && factura.items.length > 0
+                    ? factura.items.map((item, index) => {
+                        if (index > 0) {
+                            return <>
+                                <Divider dashed style={{ marginTop: 6, marginBottom: 6 }} />
+                                <FacturaItem key={index} item={item} />
+                            </>
+                        }
+                        return <FacturaItem key={index} item={item} />
+                    })
+                    : <Space style={{ padding: 8 }}>0 items</Space>
 
             }
-        </Flex>
+        </PanelPos>
     )
 }
 export default FacturaItems;

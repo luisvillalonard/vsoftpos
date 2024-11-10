@@ -1,10 +1,10 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Compra, Suplidor } from "../../interfaces/compras";
-import { Empresa } from "../../interfaces/empresas";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Compra, Suplidor } from "../../interfaces/compras"
+import { Empresa } from "../../interfaces/empresas"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Compra {}
 export interface CompraContextState<T> extends GlobalContextState<T> {
@@ -14,7 +14,9 @@ export interface CompraContextState<T> extends GlobalContextState<T> {
 export const ComprasContext = createContext<CompraContextState<Entidad>>({} as CompraContextState<Entidad>)
 
 function ComprasProvider({ children }: ControlProps) {
-    const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Compras.Compras);
+
+    const { Urls } = useConstants()
+    const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Compras.Facturas);
 
     const nuevo = () => {
         editar({

@@ -1,10 +1,10 @@
-import { createContext } from "react";
-import { ACTIONS, GlobalContextState } from "../../reducers/global";
-import { ControlProps, ResponseResult } from "../../interfaces/globales";
-import { useFetch } from "../../hooks/useFetch";
-import { Login, UserApp, Usuario, UsuarioCambioClave } from "../../interfaces/seguridad";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
+import { createContext } from "react"
+import { ACTIONS, GlobalContextState } from "../../reducers/global"
+import { ControlProps, ResponseResult } from "../../interfaces/globales"
+import { useFetch } from "../../hooks/useFetch"
+import { Login, UserApp, Usuario, UsuarioCambioClave } from "../../interfaces/seguridad"
+import { useReducerHook } from "../../hooks/useReducer"
+import { useConstants } from "../../hooks/useConstants"
 
 export interface UsuariosContextState<T> extends GlobalContextState<T> {
     nuevo: () => void,
@@ -16,7 +16,9 @@ export interface UsuariosContextState<T> extends GlobalContextState<T> {
 export const UsuariosContext = createContext<UsuariosContextState<Usuario>>({} as UsuariosContextState<Usuario>)
 
 function UsuariosProvider({ children }: ControlProps) {
-    const { state, dispatch, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Usuario>(Urls.Seguridad.Usuarios.Base);
+
+    const { Urls } = useConstants()
+    const { state, dispatch, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Usuario>(Urls.Seguridad.Usuarios);
     const api = useFetch();
 
     const nuevo = async (): Promise<void> => {
@@ -34,21 +36,21 @@ function UsuariosProvider({ children }: ControlProps) {
 
     const porCodigo = async (codigo: string): Promise<ResponseResult<Usuario>> => {
         dispatch({ type: ACTIONS.FETCHING });
-        const resp = await api.Get<Usuario>(`${Urls.Seguridad.Usuarios.Base}/${codigo}`);
+        const resp = await api.Get<Usuario>(`${Urls.Seguridad.Usuarios}/${codigo}`);
         dispatch({ type: ACTIONS.FETCH_COMPLETE, recargar: false });
         return resp;
     }
 
     const cambiarClave = async (item: UsuarioCambioClave): Promise<ResponseResult<UserApp>> => {
         dispatch({ type: ACTIONS.FETCHING });
-        const resp = await api.Post<UserApp>(Urls.Seguridad.Usuarios.CambiarClave.replace('/:codigo', ''), item);
+        const resp = await api.Post<UserApp>(Urls.Seguridad.CambiarClave.replace('/:codigo', ''), item);
         dispatch({ type: ACTIONS.FETCH_COMPLETE, recargar: true });
         return resp;
     }
 
     const validar = async (item: Login): Promise<ResponseResult<UserApp>> => {
         dispatch({ type: ACTIONS.FETCHING });
-        const resp = await api.Post<UserApp>(Urls.Seguridad.Usuarios.Validar, item);
+        const resp = await api.Post<UserApp>(Urls.Seguridad.Validar, item);
         dispatch({ type: ACTIONS.FETCH_COMPLETE, recargar: false });
         return resp;
     }

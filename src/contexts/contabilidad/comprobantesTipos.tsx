@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { ComprobanteTipo } from "../../interfaces/contabilidad";
-import { useReducerHook } from "../../hooks/useReducer";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { ComprobanteTipo } from "../../interfaces/contabilidad"
+import { useReducerHook } from "../../hooks/useReducer"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends ComprobanteTipo {}
 export interface ComprobanteTipoContextState<T> extends GlobalContextState<T> {
@@ -13,6 +13,8 @@ export interface ComprobanteTipoContextState<T> extends GlobalContextState<T> {
 export const ComprobantesTiposContext = createContext<ComprobanteTipoContextState<Entidad>>({} as ComprobanteTipoContextState<Entidad>)
 
 function ComprobantesTiposProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Contabilidad.ComprobantesTipos);
 
     const nuevo = () => {

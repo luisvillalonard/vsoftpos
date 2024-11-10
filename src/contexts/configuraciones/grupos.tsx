@@ -1,9 +1,9 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Grupo } from "../../interfaces/configuraciones";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Grupo } from "../../interfaces/configuraciones"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Grupo {}
 export interface GrupoContextState<T> extends GlobalContextState<T> {
@@ -13,6 +13,8 @@ export interface GrupoContextState<T> extends GlobalContextState<T> {
 export const GruposContext = createContext<GrupoContextState<Entidad>>({} as GrupoContextState<Entidad>)
 
 function GruposProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Configuraciones.Grupos);
 
     const nuevo = () => {

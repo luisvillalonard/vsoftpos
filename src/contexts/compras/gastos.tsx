@@ -1,10 +1,10 @@
-import { createContext } from "react";
-import { GlobalContextState } from "../../reducers/global";
-import { ControlProps } from "../../interfaces/globales";
-import { Urls } from "../../components/rutas";
-import { useReducerHook } from "../../hooks/useReducer";
-import { Gasto, GastoTipo } from "../../interfaces/compras";
-import { Empresa } from "../../interfaces/empresas";
+import { createContext } from "react"
+import { GlobalContextState } from "../../reducers/global"
+import { ControlProps } from "../../interfaces/globales"
+import { useReducerHook } from "../../hooks/useReducer"
+import { Gasto, GastoTipo } from "../../interfaces/compras"
+import { Empresa } from "../../interfaces/empresas"
+import { useConstants } from "../../hooks/useConstants"
 
 interface Entidad extends Gasto {}
 export interface GastoContextState<T> extends GlobalContextState<T> {
@@ -14,6 +14,8 @@ export interface GastoContextState<T> extends GlobalContextState<T> {
 export const GastosContext = createContext<GastoContextState<Entidad>>({} as GastoContextState<Entidad>)
 
 function GastosProvider({ children }: ControlProps) {
+
+    const { Urls } = useConstants()
     const { state, editar, cancelar, agregar, actualizar, todos } = useReducerHook<Entidad>(Urls.Compras.Gastos);
 
     const nuevo = () => {

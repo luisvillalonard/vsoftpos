@@ -1,17 +1,19 @@
-import { Button, Tooltip } from "antd"
-import { ControlProps } from "../../interfaces/globales"
-import { useIconos } from "../../hooks/useIconos"
+import { Button } from 'antd'
+import type { ButtonProps } from 'antd'
+import { useIconos } from '../../hooks/useIconos'
 
-const ButtonEdit = (props: Pick<ControlProps, "title" | "onClick">) => {
+export const ButtonEdit = (props: ButtonProps) => {
 
+    const { onClick } = props
     const { IconEdit } = useIconos()
-    const { title, onClick } = props
 
     return (
-        <Tooltip title={title ?? ''}>
-            <Button type="text" icon={<IconEdit className="fs-5" />} onClick={onClick} />
-        </Tooltip>
+        <Button
+            {...props}
+            type="text"
+            shape="circle"
+            icon={<IconEdit style={{ fontSize: 20 }} />}
+            onClick={onClick}>
+        </Button>
     )
-
 }
-export default ButtonEdit
