@@ -5,7 +5,6 @@ import Factura from './factura'
 import { useLocation } from 'react-router-dom'
 import { useData } from '../../../hooks/useData'
 import FacturaPanelPago from './pago'
-import { relative } from 'path'
 
 const PosPage = () => {
     const { contextFacturas: { nuevo } } = useData()

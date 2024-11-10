@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button, Checkbox, Form, Input, Alert, Card, Col, Divider, Flex, Layout, Space, theme, Spin } from "antd"
+import { Button, Checkbox, Form, Input, Alert, Card, Col, Divider, Flex, Layout, Space, theme } from "antd"
 import { useData } from "../../hooks/useData";
 import { Login, UserApp } from "../../interfaces/seguridad"
 import { ResponseResult } from "../../interfaces/globales"

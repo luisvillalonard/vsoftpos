@@ -3,14 +3,13 @@ import { FormatNumber } from "../../../hooks/useUtils"
 import { ControlProps } from "../../../interfaces/globales"
 import { useEffect, useState } from "react"
 import { FacturaDetalle } from "../../../interfaces/ventas"
-import { MdOutlineNoPhotography } from "react-icons/md"
 
 const ProductoPos = (props: Pick<ControlProps, "item" | "onClick">) => {
 
     const { item, onClick } = props
     const [producto, setProducto] = useState<FacturaDetalle | null>(null)
     const { token: { colorPrimary, colorBgLayout } } = theme.useToken()
-    const { Text, Paragraph } = Typography;
+    const { Text, } = Typography;
 
     useEffect(() => { setProducto(item) }, [item])
 
